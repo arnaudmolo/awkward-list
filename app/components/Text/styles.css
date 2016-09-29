@@ -1,0 +1,42 @@
+@keyframes hue-rotate {
+  from {
+    filter: hue-rotate(0deg);
+  } to {
+    filter: hue-rotate(360deg);
+  }
+}
+
+.text {
+  color: white;
+  font-size: 2em;
+  text-align: center;
+
+  filter: hue-rotate(180deg) invert();
+  mix-blend-mode: exclusion;
+  display: table;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.Linkify {
+  display: table-cell;
+  vertical-align: middle;
+  text-align: center;
+  color: black;
+  -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color: black;
+}
+
+.textMedium {
+  width: 320px;
+  height: 320px;
+}
+
+.textBig {
+  width: 640px;
+  height: 640px;
+}
+
+.textLink {
+  text-decoration: none;
+  color: white;
+}
