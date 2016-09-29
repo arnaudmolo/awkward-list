@@ -20,7 +20,7 @@ const mapStateToProps = createSelector(
   selectTweets(),
   selectInstagram(),
   (tweets, instas) =>
-    [...instas, ...tweetsToImages(tweets)].sort(Math.random)
+    [...instas, ...tweetsToImages(tweets)].sort(_ => Math.random() - 0.5)
 )
 
 export default connect(state => ({list: mapStateToProps(state)}))

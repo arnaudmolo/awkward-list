@@ -13,11 +13,10 @@ import ReactGA from 'react-ga'
 const biggy = _ => Math.random() > 0.5
 const isTweet = tweet => tweet.id_str
 
-import { withProps } from 'recompose'
+import { withProps, branch, renderComponent } from 'recompose'
 
 const nLog = withProps(props => {
   console.log(props)
-  return props
 })
 
 const Instagram = ({caption: {text}}) =>
@@ -36,11 +35,9 @@ const Tweet = ({text, id_str, user}) =>
   <div className={cx(styles.text, biggy() ? styles.textMedium : styles.textBig)} >
     <p className={styles.Linkify}>
       <a className={styles.textLink} target='_blank' href={`https://twitter.com/${user.name}/status/${id_str}`}>
-        <Linkify properties={{target: '_blank', onClick: informGA(id_str)}}>{}</Linkify>
+        {text}
       </a>
     </p>
   </div>
 
-export default props => isTweet(props)
-  ? <Tweet {...props} />
-  : <Instagram {...props} />
+export default branch(isTweet, renderComponent(Tweet), renderComponent(Instagram))()
