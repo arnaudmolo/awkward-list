@@ -9,6 +9,7 @@ stats.json
 npm-debug.log
 .idea
 *.zip
+build
 
 # Elastic Beanstalk Files
 .elasticbeanstalk/*
