@@ -39,8 +39,6 @@ const store = configureStore(initialState, browserHistory)
 import TweetsSaga from 'containers/Tweets/sagas'
 import InstagramSagas from 'containers/Instagram/sagas'
 
-ReactGA.initialize('UA-16707832-2')
-
 const sagas = [...TweetsSaga, ...InstagramSagas]
 
 sagas.forEach(store.runSaga)
