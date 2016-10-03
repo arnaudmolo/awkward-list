@@ -15,9 +15,7 @@ const isTweet = tweet => tweet.id_str
 
 import { withProps, branch, renderComponent } from 'recompose'
 
-const nLog = withProps(props => {
-  console.log(props)
-})
+const nLog = withProps(::console.log)
 
 const Instagram = ({caption: {text}}) =>
   <div className={cx(styles.text, biggy() ? styles.textMedium : styles.textBig)}>
@@ -34,7 +32,7 @@ const informGA = id => e =>
 const Tweet = ({text, id_str, user}) =>
   <div className={cx(styles.text, biggy() ? styles.textMedium : styles.textBig)} >
     <p className={styles.Linkify}>
-      <a className={styles.textLink} target='_blank' href={`https://twitter.com/${user.name}/status/${id_str}`}>
+      <a onClick={informGA(id_str)} className={styles.textLink} target='_blank' href={`https://twitter.com/${user.name}/status/${id_str}`}>
         {text}
       </a>
     </p>

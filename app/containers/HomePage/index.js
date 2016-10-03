@@ -22,8 +22,8 @@ const masonryOptions = {
 
 const AllImages = AllImagesContainer(({list}) =>
   <Masonry
-    className={'my-gallery-class'}
-    elementType={'div'}
+    className='my-gallery-class'
+    elementType='div'
     options={masonryOptions}
     disableImagesLoaded={false}
     updateOnEachImageLoad={false}
