@@ -6,7 +6,10 @@
 
 import React from 'react'
 
-const isTweet = tweet => tweet.id_str
+const isTweet = tweet => {
+  console.log(tweet)
+  return tweet.id_str
+}
 
 const Instagram = props => props.type === 'video'
   ? <InstagramVideo {...props} />
@@ -26,9 +29,9 @@ const InstagramVideo = ({videos}) =>
   />
 
 const TweetImage = ({sizes, media_url_https}) =>
-<img height={sizes.medium.h}
-  width={sizes.medium.w}
-  src={media_url_https} />
+  <img height={sizes.large.h}
+    width={sizes.large.w}
+    src={media_url_https} />
 
 const TweetVideo = ({video_info}) =>
   <video controls autoPlay loop muted>

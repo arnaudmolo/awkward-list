@@ -11,27 +11,45 @@
 
 import React from 'react'
 import AllImagesContainer from 'containers/AllImages'
-import AllTextContainer from 'containers/AllText'
 import Image from 'components/Image'
 import Text from 'components/Text'
 import Masonry from 'react-masonry-component'
+import { compose, withState, lifecycle, branch, withProps } from 'recompose'
 
 const masonryOptions = {
   transitionDuration: 0
 }
 
-const AllImages = AllImagesContainer(({list}) =>
-  <Masonry
-    className='my-gallery-class'
-    elementType='div'
-    options={masonryOptions}
-    disableImagesLoaded={false}
-    updateOnEachImageLoad={false}
-  >
-    {list.map(element =>
-      <Image {...element} key={element.id_str || element.id} />
-    )}
-  </Masonry>
+const launchOnMount = lifecycle({
+  componentDidMount () {
+    const props = this.props
+    this.id = setInterval(() => {
+      props.next()
+    }, 500)
+  },
+  componentWillUnmount() {
+    clearInterval(this.id)
+  }
+})
+
+const State = compose(
+  withState('visible', 'setVisible', 0),
+  withProps(props => ({
+    next () {
+      props.setVisible(state =>
+        (state + 1) >= props.list.length ? 0 : (state + 1)
+      )
+    }
+  })))
+
+const AllImages = compose(
+  AllImagesContainer,
+  branch(props => props.list.length, C => C, C => props => <div>loading</div>),
+  State, launchOnMount
+)(({list, visible}) =>
+  <div>
+    <Image {...list[visible]} />
+  </div>
 )
 
 const style = {
@@ -42,26 +60,11 @@ const style = {
   width: '100vw'
 }
 
-const AllText = AllTextContainer(({list}) =>
-  <div style={style}>
-    <Masonry
-      className={'my-gallery-class'}
-      elementType={'div'}
-      options={masonryOptions}
-      disableImagesLoaded={false}
-      updateOnEachImageLoad={false}
-    >
-      {list.map(element => <Text {...element} key={element.id_str || element.id} />)}
-    </Masonry>
-  </div>
-)
-
 export default class HomePage extends React.Component { // eslint-disable-line react/prefer-stateless-function
   render () {
     return (
       <div>
         <AllImages />
-        <AllText />
       </div>
     )
   }
