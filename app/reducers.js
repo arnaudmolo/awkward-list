@@ -38,6 +38,7 @@ function routeReducer (state = routeInitialState, action) {
 
 import tweetsReducer from 'containers/Tweets/reducer'
 import igReducer from 'containers/Instagram/reducer'
+import soundReducer from 'containers/Sound/reducer'
 /**
  * Creates the main reducer with the asynchronously loaded ones
  */
@@ -47,6 +48,7 @@ export default function createReducer (asyncReducers) {
     language: languageProviderReducer,
     tweets: tweetsReducer,
     instagram: igReducer,
+    sound: soundReducer,
     ...asyncReducers
   })
 }

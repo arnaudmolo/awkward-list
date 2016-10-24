@@ -7,7 +7,6 @@
 import React from 'react'
 
 const isTweet = tweet => {
-  console.log(tweet)
   return tweet.id_str
 }
 

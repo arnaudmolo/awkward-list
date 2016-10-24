@@ -11,14 +11,10 @@
 
 import React from 'react'
 import AllImagesContainer from 'containers/AllImages'
+import Sound from 'containers/Sound'
 import Image from 'components/Image'
-import Text from 'components/Text'
-import Masonry from 'react-masonry-component'
+// import Text from 'components/Text'
 import { compose, withState, lifecycle, branch, withProps } from 'recompose'
-
-const masonryOptions = {
-  transitionDuration: 0
-}
 
 const launchOnMount = lifecycle({
   componentDidMount () {
@@ -45,20 +41,13 @@ const State = compose(
 const AllImages = compose(
   AllImagesContainer,
   branch(props => props.list.length, C => C, C => props => <div>loading</div>),
-  State, launchOnMount
-)(({list, visible}) =>
+  State
+)(({list, visible, next}) =>
   <div>
+    <Sound onSoundLevelChange={next} />
     <Image {...list[visible]} />
   </div>
 )
-
-const style = {
-  position: 'absolute',
-  left: 0,
-  top: 0,
-  height: '100vh',
-  width: '100vw'
-}
 
 export default class HomePage extends React.Component { // eslint-disable-line react/prefer-stateless-function
   render () {
