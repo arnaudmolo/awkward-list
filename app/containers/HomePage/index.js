@@ -27,7 +27,7 @@ const launchOnMount = lifecycle({
       props.next()
     }, 500)
   },
-  componentWillUnmount() {
+  componentWillUnmount () {
     clearInterval(this.id)
   }
 })
