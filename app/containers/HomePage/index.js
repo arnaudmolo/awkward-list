@@ -14,19 +14,7 @@ import AllImagesContainer from 'containers/AllImages'
 import Sound from 'containers/Sound'
 import Image from 'components/Image'
 // import Text from 'components/Text'
-import { compose, withState, lifecycle, branch, withProps } from 'recompose'
-
-const launchOnMount = lifecycle({
-  componentDidMount () {
-    const props = this.props
-    this.id = setInterval(() => {
-      props.next()
-    }, 500)
-  },
-  componentWillUnmount () {
-    clearInterval(this.id)
-  }
-})
+import { compose, withState, branch, withProps } from 'recompose'
 
 const State = compose(
   withState('visible', 'setVisible', 0),

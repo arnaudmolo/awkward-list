@@ -5,7 +5,7 @@
  */
 
 import React from 'react'
-import { debounce, throttle } from 'lodash'
+import { throttle } from 'lodash'
 import autoCorrelate from './autoCorrelate'
 import { createAudioMeter } from './volumeMetter'
 
@@ -28,10 +28,8 @@ const gotStream = props => stream => {
   window.requestAnimationFrame(updatePitch(analyser, meter, props))
 }
 
-function noteFromPitch (frequency) {
-  var noteNum = 12 * (Math.log(frequency / 440) / Math.log(2))
-  return Math.round(noteNum) + 69
-}
+const noteFromPitch = fq =>
+  Math.round(12 * (Math.log(fq / 440) / Math.log(2))) + 69
 
 let prev
 function updatePitch (analyser, meter, props) {
