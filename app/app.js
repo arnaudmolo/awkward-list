@@ -21,7 +21,6 @@ import { syncHistoryWithStore } from 'react-router-redux'
 import useScroll from 'react-router-scroll'
 import LanguageProvider from 'containers/LanguageProvider'
 import configureStore from './store'
-import ReactGA from 'react-ga'
 
 // Import i18n messages
 import { translationMessages } from './i18n'
@@ -38,8 +37,9 @@ const store = configureStore(initialState, browserHistory)
 // import sagas from './sagas'
 import TweetsSaga from 'containers/Tweets/sagas'
 import InstagramSagas from 'containers/Instagram/sagas'
+import GiphiesSagas from 'containers/Giphy/sagas'
 
-const sagas = [...TweetsSaga, ...InstagramSagas]
+const sagas = [...TweetsSaga, ...InstagramSagas, ...GiphiesSagas]
 
 sagas.forEach(store.runSaga)
 

@@ -10,7 +10,8 @@
  */
 
 import React from 'react'
-import AllImagesContainer from 'containers/AllImages'
+// import AllImagesContainer from 'containers/AllImages'
+import GiphyContainer from 'containers/Giphy'
 import Sound from 'containers/Sound'
 import Image from 'components/Image'
 // import Text from 'components/Text'
@@ -20,20 +21,28 @@ const State = compose(
   withState('visible', 'setVisible', 0),
   withProps(props => ({
     next () {
-      props.setVisible(state =>
-        (state + 1) >= props.list.length ? 0 : (state + 1)
-      )
+      props.setVisible(state => {
+        if ((state + 1) >= props.list.length) {
+          props.add()
+          return 0
+        }
+        return state + 1
+      })
     }
   })))
 
 const AllImages = compose(
-  AllImagesContainer,
+  GiphyContainer,
   branch(props => props.list.length, C => C, C => props => <div>loading</div>),
   State
 )(({list, visible, next}) =>
   <div>
     <Sound onSoundLevelChange={next} />
-    <Image {...list[visible]} />
+    <div>
+      {list.map((image, index) =>
+        <Image key={image.id} {...image} selected={index === visible} />
+      )}
+    </div>
   </div>
 )
 

@@ -1,6 +1,8 @@
-const access_token = '179001457.57f57aa.99c4cc1fcafb4f76b9ac104c40026bee'
-const ig = new require('instagram-api')(access_token)
+const accessToken = '179001457.57f57aa.99c4cc1fcafb4f76b9ac104c40026bee'
+const Ig = require('instagram-api')
+const ig = new Ig(accessToken)
 const Twitter = require('twitter')
+const giphy = require('giphy')('dc6zaTOxFJmzC')
 
 const client = new Twitter({
   consumer_key: '2MhB22tw8xyNAABFzrCwL0eqw',
@@ -29,6 +31,15 @@ const getNewTweets = function async () {
 }
 
 module.exports = function (app) {
+  app.get('/api/giphy', (req, res) => {
+    return giphy.search(req.query, (err, response) => {
+      if (err) {
+        console.error(err)
+        return err
+      }
+      return res.send(response)
+    })
+  })
   app.get('/api/instagram', (req, res) =>
     ig.userSelfMedia().then(res.send.bind(res))
   )
