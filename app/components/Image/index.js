@@ -16,8 +16,8 @@ const Instagram = props => props.type === 'video'
 
 const InstagramImage = ({images}) =>
   <img
-    width={images.low_resolution.width}
-    height={images.low_resolution.height}
+    width={images.low_resolution.width * 2}
+    height={images.low_resolution.height * 2}
     src={images.standard_resolution.url} />
 
 const InstagramVideo = ({videos}) =>
@@ -28,8 +28,8 @@ const InstagramVideo = ({videos}) =>
   />
 
 const TweetImage = ({sizes, media_url_https}) =>
-  <img height={sizes.large.h}
-    width={sizes.large.w}
+  <img height={sizes.large.h * 2}
+    width={sizes.large.w * 2}
     src={media_url_https} />
 
 const TweetVideo = ({video_info}) =>

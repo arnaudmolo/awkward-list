@@ -36,7 +36,8 @@ function updatePitch (analyser, meter, props) {
   analyser.getFloatTimeDomainData(buf)
   const ac = autoCorrelate(buf, audioContext.sampleRate)
   if (ac !== -1) {
-    if (ac > 13000) {
+    if (ac < 200) {
+      console.log(ac)
       props.onSoundLevelChange('heyyyy')
     }
     const note = noteFromPitch(ac)
@@ -57,7 +58,9 @@ const styles = {
   top: 0,
   width: '100vw',
   height: '100vh',
-  fontSize: '50em'
+  fontSize: '50em',
+  filter: 'hue-rotate(180deg) invert()',
+  mixBlendMode: 'exclusion'
 }
 
 class Sound extends React.Component { // eslint-disable-line react/prefer-stateless-function

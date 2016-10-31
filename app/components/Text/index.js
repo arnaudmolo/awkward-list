@@ -13,9 +13,7 @@ import ReactGA from 'react-ga'
 const biggy = _ => Math.random() > 0.5
 const isTweet = tweet => tweet.id_str
 
-import { withProps, branch, renderComponent } from 'recompose'
-
-const nLog = withProps(::console.log)
+import { branch, renderComponent } from 'recompose'
 
 const Instagram = ({caption: {text}}) =>
   <div className={cx(styles.text, biggy() ? styles.textMedium : styles.textBig)}>
