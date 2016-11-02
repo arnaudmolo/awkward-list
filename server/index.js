@@ -10,8 +10,13 @@ const ngrok = (isDev && process.env.ENABLE_TUNNEL) || argv.tunnel ? require('ngr
 const resolve = require('path').resolve
 const app = express()
 const myApi = require('./api')
+const bodyParser = require('body-parser')
 
 // If you need a backend, e.g. an API, add your custom backend-specific middleware here
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({
+  extended: true
+}))
 myApi(app)
 
 // In production we need to pass these values in instead of relying on webpack

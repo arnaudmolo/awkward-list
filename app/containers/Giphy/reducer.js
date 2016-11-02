@@ -24,7 +24,7 @@ function giphyReducer (state = initialState, action) {
     case LOADED:
       return {
         ...action.payload,
-        data: uniqBy([...state.data, ...action.payload.data], e => e.id).sort(Math.random)
+        data: uniqBy([...action.payload.data, ...state.data], e => e.id).slice(0, 100).sort(Math.random)
       }
     default:
       return state

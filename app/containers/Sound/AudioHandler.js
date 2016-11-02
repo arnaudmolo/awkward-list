@@ -119,7 +119,7 @@ var AudioHandler = function () {
 
       // adjust for the fact that lower levels are percieved more quietly
       // make lower levels smaller
-      // levelsData[i] *=  1 + (i/levelsCount)/2;
+      levelsData[i] *= 1 + (i / levelsCount) / 2
     }
     // TODO - cap levels at 1?
 
@@ -146,12 +146,7 @@ var AudioHandler = function () {
         beatCutOff = Math.max(beatCutOff, BEAT_MIN)
       }
     }
-    debugDraw()
   }
-
-  function debugDraw () {
-  }
-
   return {
     onUseMic: onUseMic,
     update: update,

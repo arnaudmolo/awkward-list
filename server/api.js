@@ -31,8 +31,18 @@ const getNewTweets = function async () {
 }
 
 module.exports = function (app) {
+  let giphyOptions = {
+    q: 'lol'
+  }
+  app.post('/api/giphy', (req, res) => {
+    console.log('---------', req.body.tag)
+    giphyOptions.q = req.body.tag
+    return res.redirect('/admin')
+  })
   app.get('/api/giphy', (req, res) => {
-    return giphy.search(req.query, (err, response) => {
+    const options = Object.assign({}, req.query, giphyOptions)
+    console.log(options)
+    return giphy.search(options, (err, response) => {
       if (err) {
         console.error(err)
         return err

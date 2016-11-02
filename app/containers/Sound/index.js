@@ -5,7 +5,7 @@
  */
 
 import React from 'react'
-import { debounce } from 'lodash'
+import { throttle } from 'lodash'
 import autoCorrelate from './autoCorrelate'
 import { createAudioMeter } from './volumeMetter'
 import AudioHandler from './AudioHandler'
@@ -16,7 +16,7 @@ const errorCallback = e => console.log(e)
 const audioContext = new window.AudioContext()
 const buflen = 1024
 let buf = new Float32Array(buflen)
-const noteStrings = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'].map(e => '🙃')
+const noteStrings = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B']
 
 const gotStream = props => stream => {
   audioHandler.init(audioContext, props.onSoundLevelChange)
@@ -89,6 +89,6 @@ export default compose(
   withState('note', 'setNote', '...'),
   withProps(props => ({
     onPitchChange: note => props.setNote(state => note),
-    onSoundLevelChange: debounce(props.onSoundLevelChange, 150)
+    onSoundLevelChange: throttle(props.onSoundLevelChange, 150)
   }))
 )(Sound)
